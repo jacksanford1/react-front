@@ -78,23 +78,30 @@ class EditProfile extends Component {
   };
 
   clickSubmit = event => {
-    event.preventDefault(); // stops default behavior of refreshing the browser on a click
-    this.setState({loading: true})
+    event.preventDefault();
+    this.setState({ loading: true });
 
     if (this.isValid()) {
-      const userId = this.props.match.params.userId; // no clue why this works
-      const token = isAuthenticated().token;
+        const userId = this.props.match.params.userId;
+        const token = isAuthenticated().token;
 
-      update(userId, token, this.userData).then(data => {
-        if (data.error) this.setState({ error: data.error });
-        else
-          updateUser(data, () => {
-            this.setState({
-              redirectToProfile: true // tells us that it's now ok to redirect the user to their updated profile page
-            });
-          })
-
-      });
+        update(userId, token, this.userData).then(data => {
+            if (data.error) {
+                this.setState({ error: data.error });
+                // if admin only redirect
+            } else if (isAuthenticated().user.role === "admin") {
+                this.setState({
+                    redirectToProfile: true
+                });
+            } else {
+                // if same user update localstorage and redirect
+                updateUser(data, () => {
+                    this.setState({
+                        redirectToProfile: true
+                    });
+                });
+            }
+        });
     }
   };
 
@@ -202,6 +209,11 @@ class EditProfile extends Component {
           />
 
         {this.signupForm(name, email, password, about)}
+
+        {isAuthenticated().user.role === "admin" ||
+    (isAuthenticated().user._id === id &&
+        this.signupForm(name, email, password, about))}
+
       </div>
     );
   }

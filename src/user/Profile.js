@@ -134,6 +134,29 @@ class Profile extends Component {
               />
             )}
 
+            <div>
+              {isAuthenticated().user &&
+                  isAuthenticated().user.role === "admin" && (
+                      <div class="card mt-5">
+                          <div className="card-body">
+                              <h5 className="card-title">
+                                  Admin
+                              </h5>
+                              <p className="mb-2 text-danger">
+                                  Edit/Delete as an Admin
+                              </p>
+                              <Link
+                                  className="btn btn-raised btn-success mr-5"
+                                  to={`/user/edit/${user._id}`}
+                              >
+                                  Edit Profile
+                              </Link>
+                              <DeleteUser userId={user._id} />
+                          </div>
+                      </div>
+                  )}
+          </div>
+
           </div>{/*checks to see if a user is logged in and if a user matches the current logged in user (so they can edit their profile) (otherwise it lets you see follow/unfollow button for other users' profiles)*/}
         </div>
         <div className="row">

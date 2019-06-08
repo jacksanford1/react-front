@@ -15,12 +15,16 @@ import SinglePost from "./post/SinglePost";
 import PrivateRoute from './auth/PrivateRoute'; // this component ensures that you are logged in before accessing certain pages
 import ForgotPassword from "./user/ForgotPassword";
 import ResetPassword from "./user/ResetPassword";
+import Admin from './admin/Admin'
+import Test from './test/Test'
 
 const MainRouter = () => (
   <div>
     <Menu /> {/*this little guy is the menu header on top of every page*/}
     <Switch> {/*special react-router-dom component*/}
       <Route exact path="/" component={Home} /> {/*routing the main page to the Home component, the exact means the url has to be exactly that, otherwise / was overriding /signup*/}
+      <PrivateRoute exact path="/test" component={Test} />
+      <PrivateRoute exact path="/admin" component={Admin} />
       <Route exact path="/forgot-password" component={ForgotPassword} />
       <Route
         exact

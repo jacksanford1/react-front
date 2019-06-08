@@ -113,6 +113,29 @@ const Menu = ({history}) => ( // don't need class component here because we don'
 
         </>
       )}
+
+      {isAuthenticated() && isAuthenticated().user.role === "admin" && (
+    <li className="nav-item">
+        <Link
+            to={`/admin`}
+            style={isActive(history, `/admin`)}
+            className="nav-link"
+        >
+            Admin
+        </Link>
+    </li>
+      )}
+
+      <li className="nav-item">
+        <Link
+          className="nav-link"
+          style={isActive(history, "/test")}
+          to="/test"
+        >
+          Test
+        </Link> {/*Link is part of react-router-dom that creates a link to a page, use the to method to get directed around the app*/}
+      </li>
+
     </ul>
   </div>
 )

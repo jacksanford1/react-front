@@ -19,21 +19,21 @@ class EditPost extends Component {
     }
   }
 
-  init = (postId) => {
-    singlePost(postId)
-    .then(data => {
-      if(data.error) {
-        this.setState({redirectSignin: true}) // redirects them to the signin page (because that's the only way you can have an error here I guess - is if you're not signed in)
-      } else {
-        this.setState({
-          id: data._id,
-          title: data.title,
-          body: data.body,
-          error: ""
-        })
-      }
-    });
-  }
+  init = postId => {
+      singlePost(postId).then(data => {
+          if (data.error) {
+              this.setState({ redirectToProfile: true });
+          } else {
+              this.setState({
+                  // id is not post.postedBy._id
+                  id: data.postedBy._id,
+                  title: data.title,
+                  body: data.body,
+                  error: ""
+              });
+          }
+      });
+  };
 
   componentDidMount() {
     this.postData = new FormData();
@@ -159,6 +159,9 @@ class EditPost extends Component {
         />
 
         {this.editPostForm(title, body)}
+        {isAuthenticated().user.role === "admin" ||
+    (isAuthenticated().user._id === id &&
+        this.editPostForm(title, body))}
       </div>
     );
   }
