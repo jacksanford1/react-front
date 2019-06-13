@@ -3,14 +3,24 @@ import PhotoCapture from './PhotoCapture';
 
 class Test extends Component {
 
-    render() {
+  constructor(props){
+    super(props);
+    this.state = {monkeys: 0}
+    this.increment = this.increment.bind(this);
+  }
+  increment
 
-        return (
-            <div>
-                <PhotoCapture />
-            </div>
-        );
-    }
+
+
+  render() {
+
+      return (
+          <div>
+              <PhotoCapture title="HELLO" body="This is really saying something"/>
+              <p>{this.state.monkeys}</p>
+          </div>
+      );
+  }
 }
 
 export default Test;
