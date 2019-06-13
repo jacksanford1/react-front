@@ -6,7 +6,7 @@ const Home = () => (
 
     <div className="jumbotron"> {/*this jumbotron affects the styling thanks to our bootstrap material*/}
       <h2>Home</h2>
-      <p className="lead">Welcome to the JUNGLE!!!</p> {/*not sure why classname is lead, probably for styling*/}
+      <p className="lead">Welcome to your life!!!</p> {/*not sure why classname is lead, probably for styling*/}
     </div>
     <div className="container">
       <Posts />

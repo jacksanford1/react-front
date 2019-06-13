@@ -1,26 +1,10 @@
 import React, { Component } from "react";
-import PhotoCapture from './PhotoCapture';
+import Webcam from "react-webcam";
 
-class Test extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {monkeys: 0}
-    this.increment = this.increment.bind(this);
-  }
-  increment
-
-
-
+class Camera extends Component {
   render() {
-
-      return (
-          <div>
-              <PhotoCapture title="HELLO" body="This is really saying something"/>
-              <p>{this.state.monkeys}</p>
-          </div>
-      );
+    return <Webcam />;
   }
 }
 
-export default Test;
+export default Camera

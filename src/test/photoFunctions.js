@@ -1,16 +1,8 @@
-'use strict';
-
 var videoElement = document.querySelector('video');
 var audioSelect = document.querySelector('select#audioSource');
 var videoSelect = document.querySelector('select#videoSource');
 
-navigator.mediaDevices.enumerateDevices()
-  .then(gotDevices).then(getStream).catch(handleError);
-
-audioSelect.onchange = getStream;
-videoSelect.onchange = getStream;
-
-function gotDevices(deviceInfos) {
+export const gotDevices = (deviceInfos) => {
   for (var i = 0; i !== deviceInfos.length; ++i) {
     var deviceInfo = deviceInfos[i];
     var option = document.createElement('option');
@@ -29,7 +21,7 @@ function gotDevices(deviceInfos) {
   }
 }
 
-function getStream() {
+export const getStream = () => {
   if (window.stream) {
     window.stream.getTracks().forEach(function(track) {
       track.stop();
@@ -49,11 +41,15 @@ function getStream() {
     then(gotStream).catch(handleError);
 }
 
-function gotStream(stream) {
+export const gotStream = (stream) => {
   window.stream = stream; // make stream available to console
   videoElement.srcObject = stream;
 }
 
-function handleError(error) {
+export const handleError = (error) => {
   console.log('Error: ', error);
+}
+
+export const testFunction = () => {
+  console.log("TWERK TIME")
 }
